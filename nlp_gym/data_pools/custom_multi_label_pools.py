@@ -1,3 +1,5 @@
+import sys
+sys.path.append("/Users/emrebaloglu/Documents/RL/nlp-gym")
 from nlp_gym.data_pools.multi_label_pool import MultiLabelPool
 from nlp_gym.data_pools.base import Sample
 from nlp_gym.util import get_sample_weights
@@ -86,4 +88,5 @@ class ReutersDataPool(MultiLabelPool):
 
 if __name__ == "__main__":
     pool = ReutersDataPool.prepare(split="train")
+    print(pool.labels())
     print(len(pool))

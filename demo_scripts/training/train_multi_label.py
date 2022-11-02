@@ -1,3 +1,5 @@
+import sys 
+sys.path.append("/Users/emrebaloglu/Documents/RL/nlp-gym")
 from nlp_gym.data_pools.custom_multi_label_pools import ReutersDataPool
 from nlp_gym.envs.multi_label.env import MultiLabelEnv
 from nlp_gym.envs.multi_label.reward import F1RewardFunction
@@ -5,6 +7,7 @@ from stable_baselines.deepq.policies import MlpPolicy as DQNPolicy
 from stable_baselines import DQN
 from stable_baselines.common.env_checker import check_env
 from rich import print
+
 
 
 def eval_model(model, env):
@@ -42,10 +45,11 @@ for sample, weight in pool:
 check_env(env, warn=True)
 
 # train a MLP Policy
+
 model = DQN(env=env, policy=DQNPolicy, gamma=0.99, batch_size=32, learning_rate=1e-3,
             double_q=True, exploration_fraction=0.1,
             prioritized_replay=False, policy_kwargs={"layers": [200]},
             verbose=1)
-for i in range(int(1e+3)):
+for i in range(int(5)):
     model.learn(total_timesteps=int(1e+3), reset_num_timesteps=False)
     eval_model(model, env)
